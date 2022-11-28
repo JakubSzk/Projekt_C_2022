@@ -1,0 +1,3 @@
+Na etapie raport 2 przygotowałem SFML i wykonałem pierwsze testy.
+Oprócz powyższego nadrobiłem wymaganą wiedzę do stworzenia podstaw 
+zaplanowanego programu taką jak na przykład klasy wirtualne.
