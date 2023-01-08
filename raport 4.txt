@@ -1,0 +1,6 @@
+Zapomniałem napisać poprzedni raport, jak i updateować pliki na github,
+więc ten i poprzedni raport zawrę w jednym. Od poprzedniego update dodałem
+wszystkie funkcje, oraz ich wizualizacje graficzne. W tym momencie zostało
+tylko napisać kilka skryptów zarządzających elementami w programie.
+Nie licząc profili użytkowników (z których zrezygnowałem) cele na tę datę
+zostały niemalże w 100% spełnione.
