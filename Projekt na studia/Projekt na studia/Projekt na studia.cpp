@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -5,12 +6,36 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <time.h>
 
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1900, 1000), "Qest List");
+    sf::RenderWindow window(sf::VideoMode(1900, 1000), "Quest List");
     sf::RectangleShape shape(sf::Vector2f(300, 300));
+    sf::Texture calendarblue, calendargreen, calendarred, calendarfree, calendarright, calendarleft;
+    sf::Texture buttonback;
+
+    //wczytywanie tekstur
+    calendarblue.loadFromFile("resources/calendarblue.png");
+    calendarred.loadFromFile("resources/calendarred.png");
+    calendargreen.loadFromFile("resources/calendargreen.png");
+    calendarfree.loadFromFile("resources/calendarfree.png");
+    calendarright.loadFromFile("resources/calendarright.png");
+    calendarleft.loadFromFile("resources/calendarleft.png");
+    buttonback.loadFromFile("resources/buttonback.png");
+
+
+
+    time_t czas;
+    struct tm* data;
+    int month, day, year;
+    std::string name, line, calendarmonth;
+    std::fstream plik;
+    time(&czas);
+    data = localtime(&czas);
+
+
     shape.setFillColor(sf::Color::Green);
     sf::Font font;
     font.loadFromFile("Jack.TTF");
@@ -23,20 +48,23 @@ int main()
 
     //vectory ze zmieniajaca sie iloscia zasobow
     std::vector<sf::RectangleShape> przyciski; //vector ze wszystkimi przyciskami
+    std::vector<sf::Sprite> objects; //vector ze wszystkimi obiektami
     std::vector<int> Xprzyciski; //po dwie kolejne zmienne na kazdy przycisk (poczatek i koniec)
     std::vector<int> Yprzyciski; //po dwie kolejne zmienne na kazdy przycisk (gora i dol)
     std::vector<sf::Text> teksty; //vector z tekstami do wyswietlenia
 
     sf::Vector2i pozycja;
     int szerokosc = 300;
-    int state = -1;
+    int state = -1, dni = 0;;
     bool change_state = true;
+    window.setFramerateLimit(30);
     while (window.isOpen())
     {
         if (change_state) //wczytywanie i usuwanie
         {
             if (state == -1) //menu glowne
             {
+                objects.clear();
                 przyciski.clear();
                 teksty.clear();
                 Xprzyciski.clear();
@@ -99,73 +127,181 @@ int main()
                 teksty.clear();
                 Xprzyciski.clear();
                 Yprzyciski.clear();
+                objects.clear();
                 for (int i = 0; i < 48; i++)
-                    przyciski.push_back(sf::RectangleShape()); //tworzenie wszystkich przyciskow
-                int ey = 180;
+                    objects.push_back(sf::Sprite()); //tworzenie wszystkich przyciskow beda one od 0 do 47 (48 rzeczy)
+                int ey = 44;
+                data->tm_mday = 1;
+                mktime(data);
+
+                //dni dla miesiaca
+                if (data->tm_mon == 0) //styczen
+                {
+                    dni = 31;
+                    calendarmonth = "Styczen ";
+                }
+                if (data->tm_mon == 1) //luty
+                {
+                    dni = 28;
+                    if ((data->tm_year % 4) == 0)
+                        dni = 29;
+                    calendarmonth = "Luty ";
+                }
+                if (data->tm_mon == 2) //marzec
+                {
+                    dni = 31;
+                    calendarmonth = "Marzec ";
+                }
+                if (data->tm_mon == 3) //kwiecien
+                {
+                    dni = 30;
+                    calendarmonth = "Kwiecen ";
+                }
+                if (data->tm_mon == 4) //maj
+                {
+                    dni = 31;
+                    calendarmonth = "Maj ";
+                }
+                if (data->tm_mon == 5) //czerwiec
+                {
+                    dni = 30;
+                    calendarmonth = "Czerwiec ";
+                }
+                if (data->tm_mon == 6) //lipiec
+                {
+                    dni = 31;
+                    calendarmonth = "Lipiec ";
+                }
+                if (data->tm_mon == 7) //sierpien
+                {
+                    dni = 31;
+                    calendarmonth = "Sierpien ";
+                }
+                if (data->tm_mon == 8) //wrzesien
+                {
+                    dni = 30;
+                    calendarmonth = "Wrzesien ";
+                }
+                if (data->tm_mon == 9) //pazdziernik
+                {
+                    dni = 31;
+                    calendarmonth = "Pazdziernik ";
+                }
+                if (data->tm_mon == 10) //listopad
+                {
+                    dni = 30;
+                    calendarmonth = "Listopad ";
+                }
+                if (data->tm_mon == 11) //grudzien
+                {
+                    dni = 31;
+                    calendarmonth = "Grudzien ";
+                }
+                calendarmonth += std::to_string(data->tm_year + 1900);
+
+                if (data->tm_wday != 0)
+                {
+                    for (int i = 1; i <= dni; i++)
+                    {
+                        name = "calendar/";
+                        name = name + std::to_string(i) + "v" + std::to_string(data->tm_mon + 1) + "v" + std::to_string(data->tm_year + 1900) + ".txt";
+                        plik.open(name.c_str(), std::ios::in);
+                        std::cout << name << "\n";
+                        if (!(plik.good()))
+                            objects[i + data->tm_wday - 2].setTexture(calendarblue);
+                        if (plik.good())
+                        {
+                            std::getline(plik, line);
+                            if (line == "red")
+                                objects[i + data->tm_wday - 2].setTexture(calendarred);
+                            if (line == "green")
+                                objects[i + data->tm_wday - 2].setTexture(calendargreen);
+                        }
+                        plik.close();
+                    }
+                }
+                else
+                {
+                    for (int i = 1; i <= dni; i++)
+                    {
+                        name = "calendar/";
+                        name = name + std::to_string(i) + "v" + std::to_string(data->tm_mon + 1) + "v" + std::to_string(data->tm_year + 1900) + ".txt";
+                        plik.open(name.c_str(), std::ios::in);
+                        std::cout << name << "\n";
+                        if (!(plik.good()))
+                            objects[i + data->tm_wday + 5].setTexture(calendarblue);
+                        if (plik.good())
+                        {
+                            std::getline(plik, line);
+                            if (line == "red")
+                                objects[i + data->tm_wday + 5].setTexture(calendarred);
+                            if (line == "green")
+                                objects[i + data->tm_wday + 5].setTexture(calendargreen);
+                        }
+                        plik.close();
+                    }
+                }
                 for (int i = 0; i < 42; i++)
                 {
-                    przyciski[i].setSize(sf::Vector2f(115, 68));
-                    przyciski[i].setFillColor(sf::Color::Green); //przyciski kalendarza na zielono i wymiary
+                    if (i % 7 == 0)
+                        ey += 136;
+                    objects[i].setPosition(sf::Vector2f(143 + ((i%7) * 230), ey));
+                    
+                    //ey += 136;
                 }
-                for (int i = 0; i < 6; i++)
-                {
-                    przyciski[7 * i + 0].setPosition(sf::Vector2f(200, ey));
-                    przyciski[7 * i + 1].setPosition(sf::Vector2f(430, ey));
-                    przyciski[7 * i + 2].setPosition(sf::Vector2f(660, ey)); //kolejne dni tygodnia
-                    przyciski[7 * i + 3].setPosition(sf::Vector2f(891, ey));
-                    przyciski[7 * i + 4].setPosition(sf::Vector2f(1125, ey));
-                    przyciski[7 * i + 5].setPosition(sf::Vector2f(1355, ey));
-                    przyciski[7 * i + 6].setPosition(sf::Vector2f(1585, ey));
-                    ey += 136;
-                }
-                przyciski[42].setSize(sf::Vector2f(50, 600)); //przycisk w lewo
-                przyciski[42].setPosition(sf::Vector2f(30, 200));
-                przyciski[43].setSize(sf::Vector2f(50, 600)); //przycisk w prawo
-                przyciski[43].setPosition(sf::Vector2f(1820, 200));
-                przyciski[43].setFillColor(sf::Color::Blue);
-                przyciski[42].setFillColor(sf::Color::Blue);
+                objects[42].setTexture(calendarleft); //przycisk w lewo
+                objects[42].setPosition(sf::Vector2f(30, 200));
+                objects[43].setTexture(calendarright); //przycisk w prawo
+                objects[43].setPosition(sf::Vector2f(1820, 200));
+                
                 for (int i = 0; i < 4; i++)
                 {
-                    przyciski[i + 44].setSize(sf::Vector2f(255, 50)); //ustawienia dla paska funkcji
-                    przyciski[i + 44].setFillColor(sf::Color::Cyan);
+                    objects[i + 44].setTexture(buttonback); //ustawienia dla paska funkcji
                 }
-                przyciski[44].setPosition(sf::Vector2f(250, 30));
-                przyciski[45].setPosition(sf::Vector2f(631, 30));
-                przyciski[46].setPosition(sf::Vector2f(1014, 30)); //pozycje dla paska funkcji
-                przyciski[47].setPosition(sf::Vector2f(1395, 30));
-                for (int i = 0; i < 46; i++)
+                objects[44].setPosition(sf::Vector2f(250, 30));
+                objects[45].setPosition(sf::Vector2f(631, 30));
+                objects[46].setPosition(sf::Vector2f(1014, 30)); //pozycje dla paska funkcji
+                objects[47].setPosition(sf::Vector2f(1395, 30));
+
+
+                //teksty
+                for (int i = 0; i < 47; i++)
                     teksty.push_back(sf::Text()); //tworzenie wszystkich tekst
-                for (int i = 0; i < 46; i++)
+                for (int i = 0; i <47; i++)
                 {
                     teksty[i].setFont(font);
                     teksty[i].setCharacterSize(20);
                     teksty[i].setFillColor(sf::Color::Black);
-                    teksty[i].setString(std::to_string(i));
+                    //teksty[i].setString(std::to_string(i));
                 }
-                ey = 180;
-                for (int i = 0; i < 6; i++)
+                ey = 45;
+                for (int i = 0; i < 42; i++)
                 {
-                    teksty[7 * i + 0].setPosition(sf::Vector2f(200, ey));
-                    teksty[7 * i + 1].setPosition(sf::Vector2f(430, ey));
-                    teksty[7 * i + 2].setPosition(sf::Vector2f(660, ey)); //kolejne dni tygodnia
-                    teksty[7 * i + 3].setPosition(sf::Vector2f(891, ey));
-                    teksty[7 * i + 4].setPosition(sf::Vector2f(1125, ey));
-                    teksty[7 * i + 5].setPosition(sf::Vector2f(1355, ey));
-                    teksty[7 * i + 6].setPosition(sf::Vector2f(1585, ey));
-                    ey += 136;
+                    if (i % 7 == 0)
+                        ey += 136;
+                    teksty[i].setPosition(sf::Vector2f(145 + ((i % 7) * 230), ey));
+
+                    //ey += 136;
                 }
+                for (int i = 1; i <= dni; i++)
+                    teksty[i + data->tm_wday - 2].setString(std::to_string(i));
+
                 teksty[42].setString("MENU");
                 teksty[43].setString("BOARD");
                 teksty[44].setString("QUEST LIST"); //teksty dla przyciskow gornych
                 teksty[45].setString("QUEST LOG");
 
-                teksty[42].setPosition(sf::Vector2f(250, 30));
-                teksty[43].setPosition(sf::Vector2f(631, 30)); //umiejcowienie przyciskow gornych
-                teksty[44].setPosition(sf::Vector2f(1014, 30));
-                teksty[45].setPosition(sf::Vector2f(1395, 30));
+                teksty[42].setPosition(sf::Vector2f(255, 30));
+                teksty[43].setPosition(sf::Vector2f(636, 30)); //umiejcowienie przyciskow gornych
+                teksty[44].setPosition(sf::Vector2f(1019, 30));
+                teksty[45].setPosition(sf::Vector2f(1400, 30));
+                teksty[46].setCharacterSize(30);
+                teksty[46].setPosition(sf::Vector2f(250, 100));
+                teksty[46].setString(calendarmonth);
             }
             if (state == 1) //board
             {
+                objects.clear();
                 przyciski.clear();
                 teksty.clear();
                 Xprzyciski.clear();
@@ -252,6 +388,7 @@ int main()
             }
             if (state == 2) //quest list
             {
+                objects.clear();
                 przyciski.clear();
                 teksty.clear();
                 Xprzyciski.clear();
@@ -333,6 +470,7 @@ int main()
             }
             if (state == 3) //quest log
             {
+                objects.clear();
                 przyciski.clear();
                 teksty.clear();
                 Xprzyciski.clear();
@@ -391,6 +529,7 @@ int main()
             }
             if (state == 4) //creator
             {
+                objects.clear();
                 przyciski.clear();
                 teksty.clear();
                 Xprzyciski.clear();
@@ -444,21 +583,30 @@ int main()
         }
         else if (state == 0) //calendar
         {
-            przyciski[44].setFillColor(sf::Color::Cyan);
+            objects[44].setColor(sf::Color::White);
             if (pozycja.x >= 255 && pozycja.x <= 505 && pozycja.y >= 30 && pozycja.y <= 80) //board
-                przyciski[44].setFillColor(sf::Color::Magenta);
+                objects[44].setColor(sf::Color(125,125,125,255));
 
-            przyciski[45].setFillColor(sf::Color::Cyan);
+            objects[45].setColor(sf::Color::White);
             if (pozycja.x >= 631 && pozycja.x <= 886 && pozycja.y >= 30 && pozycja.y <= 80) //board
-                przyciski[45].setFillColor(sf::Color::Magenta);
+                objects[45].setColor(sf::Color(125, 125, 125, 255));
 
-            przyciski[46].setFillColor(sf::Color::Cyan);
+            objects[46].setColor(sf::Color::White);
             if (pozycja.x >= 1014 && pozycja.x <= 1269 && pozycja.y >= 30 && pozycja.y <= 80) //board
-                przyciski[46].setFillColor(sf::Color::Magenta);
+                objects[46].setColor(sf::Color(125, 125, 125, 255));
 
-            przyciski[47].setFillColor(sf::Color::Cyan);
+            objects[47].setColor(sf::Color::White);
             if (pozycja.x >= 1395 && pozycja.x <= 1650 && pozycja.y >= 30 && pozycja.y <= 80) //board
-                przyciski[47].setFillColor(sf::Color::Magenta);
+                objects[47].setColor(sf::Color(125, 125, 125, 255));
+
+            objects[42].setColor(sf::Color::White);
+            if (pozycja.x >= 30 && pozycja.x <= 80 && pozycja.y >= 200 && pozycja.y <= 800) //calendar left
+                objects[42].setColor(sf::Color(125, 125, 125, 255));
+
+            objects[43].setColor(sf::Color::White);
+            if (pozycja.x >= 1820 && pozycja.x <= 1870 && pozycja.y >= 200 && pozycja.y <= 800) //calendar right
+                objects[43].setColor(sf::Color(125, 125, 125, 255));
+
         }
         else if (state == 1) //board
         {
@@ -584,6 +732,269 @@ int main()
                         state = 3;
                         change_state = true;
                     }
+                    if (pozycja.x >= 30 && pozycja.x <= 80 && pozycja.y >= 200 && pozycja.y <= 800) //calendar left
+                    {
+                        for (int i = 0; i < 42; i++)
+                        {
+                            objects[i].setTexture(calendarfree);
+                            teksty[i].setString("");
+                        }
+                        std::cout << "przycisk calendar left \n";
+                        if (data->tm_mon == 0)
+                        {
+                            data->tm_mon = 11;
+                            data->tm_year -= 1;
+                        }
+                        else
+                        {
+                            data->tm_mon -= 1;
+                        }
+                        mktime(data);
+
+                        if (data->tm_mon == 0) //styczen
+                        {
+                            dni = 31;
+                            calendarmonth = "Styczen ";
+                        }
+                        if (data->tm_mon == 1) //luty
+                        {
+                            dni = 28;
+                            if ((data->tm_year % 4) == 0)
+                                dni = 29;
+                            calendarmonth = "Luty ";
+                        }
+                        if (data->tm_mon == 2) //marzec
+                        {
+                            dni = 31;
+                            calendarmonth = "Marzec ";
+                        }
+                        if (data->tm_mon == 3) //kwiecien
+                        {
+                            dni = 30;
+                            calendarmonth = "Kwiecen ";
+                        }
+                        if (data->tm_mon == 4) //maj
+                        {
+                            dni = 31;
+                            calendarmonth = "Maj ";
+                        }
+                        if (data->tm_mon == 5) //czerwiec
+                        {
+                            dni = 30;
+                            calendarmonth = "Czerwiec ";
+                        }
+                        if (data->tm_mon == 6) //lipiec
+                        {
+                            dni = 31;
+                            calendarmonth = "Lipiec ";
+                        }
+                        if (data->tm_mon == 7) //sierpien
+                        {
+                            dni = 31;
+                            calendarmonth = "Sierpien ";
+                        }
+                        if (data->tm_mon == 8) //wrzesien
+                        {
+                            dni = 30;
+                            calendarmonth = "Wrzesien ";
+                        }
+                        if (data->tm_mon == 9) //pazdziernik
+                        {
+                            dni = 31;
+                            calendarmonth = "Pazdziernik ";
+                        }
+                        if (data->tm_mon == 10) //listopad
+                        {
+                            dni = 30;
+                            calendarmonth = "Listopad ";
+                        }
+                        if (data->tm_mon == 11) //grudzien
+                        {
+                            dni = 31;
+                            calendarmonth = "Grudzien ";
+                        }
+                        calendarmonth += std::to_string(data->tm_year + 1900);
+                        if (data->tm_wday != 0)
+                        {
+                            for (int i = 1; i <= dni; i++)
+                            {
+                                name = "calendar/";
+                                name = name + std::to_string(i) + "v" + std::to_string(data->tm_mon + 1) + "v" + std::to_string(data->tm_year + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::in);
+                                std::cout << name << "\n";
+                                if (!(plik.good()))
+                                    objects[i + data->tm_wday - 2].setTexture(calendarblue);
+                                if (plik.good())
+                                {
+                                    std::getline(plik, line);
+                                    if (line == "red")
+                                        objects[i + data->tm_wday - 2].setTexture(calendarred);
+                                    if (line == "green")
+                                        objects[i + data->tm_wday - 2].setTexture(calendargreen);
+                                }
+                                plik.close();
+                            }
+                            for (int i = 1; i <= dni; i++)
+                                teksty[i + data->tm_wday - 2].setString(std::to_string(i));
+                        }
+                        else
+                        {
+                            for (int i = 1; i <= dni; i++)
+                            {
+                                name = "calendar/";
+                                name = name + std::to_string(i) + "v" + std::to_string(data->tm_mon + 1) + "v" + std::to_string(data->tm_year + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::in);
+                                std::cout << name << "\n";
+                                if (!(plik.good()))
+                                    objects[i + data->tm_wday + 5].setTexture(calendarblue);
+                                if (plik.good())
+                                {
+                                    std::getline(plik, line);
+                                    if (line == "red")
+                                        objects[i + data->tm_wday + 5].setTexture(calendarred);
+                                    if (line == "green")
+                                        objects[i + data->tm_wday + 5].setTexture(calendargreen);
+                                }
+                                plik.close();
+                            }
+                            for (int i = 1; i <= dni; i++)
+                                teksty[i + data->tm_wday + 5].setString(std::to_string(i));
+                        }
+                        teksty[46].setString(calendarmonth);
+                        
+
+                    }
+                    if (pozycja.x >= 1820 && pozycja.x <= 1870 && pozycja.y >= 200 && pozycja.y <= 800) //calendar right
+                    {
+                        std::cout << "przycisk calendar right \n";
+                        for (int i = 0; i < 42; i++)
+                        {
+                            objects[i].setTexture(calendarfree);
+                            teksty[i].setString("");
+                        }
+                        if (data->tm_mon == 11)
+                        {
+                            data->tm_mon = 0;
+                            data->tm_year += 1;
+                        }
+                        else
+                        {
+                            data->tm_mon += 1;
+                        }
+                        mktime(data);
+
+                        if (data->tm_mon == 0) //styczen
+                        {
+                            dni = 31;
+                            calendarmonth = "Styczen ";
+                        }
+                        if (data->tm_mon == 1) //luty
+                        {
+                            dni = 28;
+                            if ((data->tm_year % 4) == 0)
+                                dni = 29;
+                            calendarmonth = "Luty ";
+                        }
+                        if (data->tm_mon == 2) //marzec
+                        {
+                            dni = 31;
+                            calendarmonth = "Marzec ";
+                        }
+                        if (data->tm_mon == 3) //kwiecien
+                        {
+                            dni = 30;
+                            calendarmonth = "Kwiecen ";
+                        }
+                        if (data->tm_mon == 4) //maj
+                        {
+                            dni = 31;
+                            calendarmonth = "Maj ";
+                        }
+                        if (data->tm_mon == 5) //czerwiec
+                        {
+                            dni = 30;
+                            calendarmonth = "Czerwiec ";
+                        }
+                        if (data->tm_mon == 6) //lipiec
+                        {
+                            dni = 31;
+                            calendarmonth = "Lipiec ";
+                        }
+                        if (data->tm_mon == 7) //sierpien
+                        {
+                            dni = 31;
+                            calendarmonth = "Sierpien ";
+                        }
+                        if (data->tm_mon == 8) //wrzesien
+                        {
+                            dni = 30;
+                            calendarmonth = "Wrzesien ";
+                        }
+                        if (data->tm_mon == 9) //pazdziernik
+                        {
+                            dni = 31;
+                            calendarmonth = "Pazdziernik ";
+                        }
+                        if (data->tm_mon == 10) //listopad
+                        {
+                            dni = 30;
+                            calendarmonth = "Listopad ";
+                        }
+                        if (data->tm_mon == 11) //grudzien
+                        {
+                            dni = 31;
+                            calendarmonth = "Grudzien ";
+                        }
+                        calendarmonth += std::to_string(data->tm_year + 1900);
+                        if (data->tm_wday != 0)
+                        {
+                            for (int i = 1; i <= dni; i++)
+                            {
+                                name = "calendar/";
+                                name = name + std::to_string(i) + "v" + std::to_string(data->tm_mon + 1) + "v" + std::to_string(data->tm_year + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::in);
+                                std::cout << name << "\n";
+                                if (!(plik.good()))
+                                    objects[i + data->tm_wday - 2].setTexture(calendarblue);
+                                if (plik.good())
+                                {
+                                    std::getline(plik, line);
+                                    if (line == "red")
+                                        objects[i + data->tm_wday - 2].setTexture(calendarred);
+                                    if (line == "green")
+                                        objects[i + data->tm_wday - 2].setTexture(calendargreen);
+                                }
+                                plik.close();
+                            }
+                            for (int i = 1; i <= dni; i++)
+                                teksty[i + data->tm_wday - 2].setString(std::to_string(i));
+                        }
+                        else
+                        {
+                            for (int i = 1; i <= dni; i++)
+                            {
+                                name = "calendar/";
+                                name = name + std::to_string(i) + "v" + std::to_string(data->tm_mon + 1) + "v" + std::to_string(data->tm_year + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::in);
+                                std::cout << name << "\n";
+                                if (!(plik.good()))
+                                    objects[i + data->tm_wday + 5].setTexture(calendarblue);
+                                if (plik.good())
+                                {
+                                    std::getline(plik, line);
+                                    if (line == "red")
+                                        objects[i + data->tm_wday + 5].setTexture(calendarred);
+                                    if (line == "green")
+                                        objects[i + data->tm_wday + 5].setTexture(calendargreen);
+                                }
+                                plik.close();
+                            }
+                            for (int i = 1; i <= dni; i++)
+                                teksty[i + data->tm_wday + 5].setString(std::to_string(i));
+                        }
+                        teksty[46].setString(calendarmonth);
+                    }
+                    
                 }
                 else if (state == 1) //board
                 {
@@ -710,13 +1121,17 @@ int main()
 
         }
 
-        window.clear();
+        window.clear(sf::Color(211,211,211,255));
         for (int i = 0; i < przyciski.size(); i++)
             window.draw(przyciski[i]);
-        for (int i = 0; i < teksty.size(); i++)
-            window.draw(teksty[i]);
+        
+        for (int i = 0; i < objects.size(); i++)
+            window.draw(objects[i]);
         //window.draw(shape);
         //window.draw(tekst);
+
+        for (int i = 0; i < teksty.size(); i++)
+            window.draw(teksty[i]);
         window.display();
     }
 
