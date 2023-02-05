@@ -7,6 +7,8 @@
 #include <vector>
 #include <string>
 #include <time.h>
+#include <direct.h>
+#include <cstdio>
 
 
 int main()
@@ -14,7 +16,8 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1900, 1000), "Quest List");
     sf::RectangleShape shape(sf::Vector2f(300, 300));
     sf::Texture calendarblue, calendargreen, calendarred, calendarfree, calendarright, calendarleft;
-    sf::Texture buttonback;
+    sf::Texture buttonback, free;
+    sf::Texture boardback, boardbook, boardhealth, boardmeat, boardweight, boardup, boarddown, boardadd;
 
     //wczytywanie tekstur
     calendarblue.loadFromFile("resources/calendarblue.png");
@@ -24,13 +27,23 @@ int main()
     calendarright.loadFromFile("resources/calendarright.png");
     calendarleft.loadFromFile("resources/calendarleft.png");
     buttonback.loadFromFile("resources/buttonback.png");
+    boardback.loadFromFile("resources/boardback.png");
+    boardbook.loadFromFile("resources/boardbook.png");
+    boardhealth.loadFromFile("resources/boardhealth.png");
+    boardmeat.loadFromFile("resources/boardmeat.png");
+    boardweight.loadFromFile("resources/boardweight.png");
+    boardup.loadFromFile("resources/boardup.png");
+    boarddown.loadFromFile("resources/boarddown.png");
+    boardadd.loadFromFile("resources/boardadd.png");
+    free.loadFromFile("resources/free.png");
+
 
 
 
     time_t czas;
     struct tm* data;
     int month, day, year;
-    std::string name, line, calendarmonth;
+    std::string name, line, calendarmonth, note, helper;
     std::fstream plik;
     time(&czas);
     data = localtime(&czas);
@@ -42,8 +55,8 @@ int main()
     sf::Text tekst;
     tekst.setFont(font);
     tekst.setCharacterSize(20);
-    tekst.setFillColor(sf::Color::Red);
-    tekst.setString("ABCDEFGH");
+    tekst.setFillColor(sf::Color::Black);
+    tekst.setString("...");
     sf::String playerInput, przenoszenie;
 
     //vectory ze zmieniajaca sie iloscia zasobow
@@ -52,12 +65,25 @@ int main()
     std::vector<int> Xprzyciski; //po dwie kolejne zmienne na kazdy przycisk (poczatek i koniec)
     std::vector<int> Yprzyciski; //po dwie kolejne zmienne na kazdy przycisk (gora i dol)
     std::vector<sf::Text> teksty; //vector z tekstami do wyswietlenia
+    
+    sf::Sprite addoner[5];
+    addoner[0].setTexture(boardmeat);
+    addoner[1].setTexture(boardhealth);
+    addoner[2].setTexture(boardweight);
+    addoner[3].setTexture(boardbook);
+    addoner[4].setTexture(boardback);
+    addoner[0].setPosition(sf::Vector2f(2000, 1100));
+    addoner[1].setPosition(sf::Vector2f(2000, 1100));
+    addoner[2].setPosition(sf::Vector2f(2000, 1100));
+    addoner[3].setPosition(sf::Vector2f(2000, 1100));
+    addoner[4].setPosition(sf::Vector2f(2000, 1100));
+    tekst.setPosition(sf::Vector2f(2000, 1100));
 
     sf::Vector2i pozycja;
-    int szerokosc = 300;
-    int state = -1, dni = 0;;
-    bool change_state = true;
-    window.setFramerateLimit(30);
+    int szerokosc = 300, licznik_umieszczanie = 0, licznik_wysokosc = 1;
+    int state = -1, dni = 0, przesownik = 0;
+    bool change_state = true, completed = true, adding = false, texting = false;
+    window.setFramerateLimit(15);
     while (window.isOpen())
     {
         if (change_state) //wczytywanie i usuwanie
@@ -301,59 +327,146 @@ int main()
             }
             if (state == 1) //board
             {
+                przesownik = 0;
                 objects.clear();
                 przyciski.clear();
                 teksty.clear();
                 Xprzyciski.clear();
                 Yprzyciski.clear();
 
-                for (int i = 0; i < 26; i++)
+                for (int i = 0; i < 32; i++)
                 {
-                    przyciski.push_back(sf::RectangleShape()); //wszystkie elementy
-                }
-                for (int i = 0; i < 9; i++)
-                {
-                    przyciski[i].setSize(sf::Vector2f(250, 250));
-                    przyciski[i].setFillColor(sf::Color::Green);
+                    objects.push_back(sf::Sprite()); //wszystkie elementy
                 }
 
-                przyciski[0].setPosition(sf::Vector2f(110, 200));
-                przyciski[1].setPosition(sf::Vector2f(410, 200));
-                przyciski[2].setPosition(sf::Vector2f(110, 485));
-                przyciski[3].setPosition(sf::Vector2f(410, 485)); //pozycje kolejnych kartek
-                przyciski[4].setPosition(sf::Vector2f(110, 770));
-                przyciski[5].setPosition(sf::Vector2f(410, 770));
-                przyciski[6].setPosition(sf::Vector2f(1600, 200));
-                przyciski[7].setPosition(sf::Vector2f(1600, 485));
-                przyciski[8].setPosition(sf::Vector2f(1600, 770));
-
-                for (int i = 9; i < 18; i++)
+                for (int i = 0; i < 16; i++)
+                    teksty.push_back(sf::Text()); //tworzenie wszystkich tekst
+                for (int i = 0; i < 16; i++)
                 {
-                    przyciski[i].setSize(sf::Vector2f(220, 50)); //rozmiary zdjec
-                    przyciski[i].setFillColor(sf::Color::Yellow); //color
+                    teksty[i].setFont(font);
+                    teksty[i].setCharacterSize(20);
+                    teksty[i].setFillColor(sf::Color::Black);
                 }
 
-                przyciski[9].setPosition(sf::Vector2f(125, 215));
-                przyciski[10].setPosition(sf::Vector2f(425, 215));
-                przyciski[11].setPosition(sf::Vector2f(125, 500));
-                przyciski[12].setPosition(sf::Vector2f(425, 500));
-                przyciski[13].setPosition(sf::Vector2f(125, 785));
-                przyciski[14].setPosition(sf::Vector2f(425, 785)); //pozycje zdjec
-                przyciski[15].setPosition(sf::Vector2f(1615, 215));
-                przyciski[16].setPosition(sf::Vector2f(1615, 500));
-                przyciski[17].setPosition(sf::Vector2f(1615, 785));
-
-                for (int i = 18; i < 22; i++)
+                for (int i = 0; i < 12; i++)
                 {
-                    przyciski[i].setSize(sf::Vector2f(255, 50)); //przyciski gorne
-                    przyciski[i].setFillColor(sf::Color::Blue);
+                    objects[i].setTexture(boardback);
                 }
+                szerokosc = 220;
+                objects[0].setPosition(sf::Vector2f(110, 200));
+                objects[1].setPosition(sf::Vector2f(410, 200));
+                objects[2].setPosition(sf::Vector2f(710, 200));
+                objects[3].setPosition(sf::Vector2f(110, 485)); //pozycje kolejnych kartek
+                objects[4].setPosition(sf::Vector2f(410, 485));
+                objects[5].setPosition(sf::Vector2f(710, 485));
+                objects[6].setPosition(sf::Vector2f(110, 770));
+                objects[7].setPosition(sf::Vector2f(410, 770));
+                objects[8].setPosition(sf::Vector2f(710, 770));
+                objects[9].setPosition(sf::Vector2f(1600, 200));
+                objects[10].setPosition(sf::Vector2f(1600, 485));
+                objects[11].setPosition(sf::Vector2f(1600, 770));
 
-                przyciski[18].setPosition(sf::Vector2f(250, 30));
-                przyciski[19].setPosition(sf::Vector2f(631, 30)); //pozycje przyciskow gornych
-                przyciski[20].setPosition(sf::Vector2f(1014, 30));
-                przyciski[21].setPosition(sf::Vector2f(1395, 30));
+                teksty[0].setPosition(sf::Vector2f(125, 275));
+                teksty[1].setPosition(sf::Vector2f(425, 275));
+                teksty[2].setPosition(sf::Vector2f(725, 275));
+                teksty[3].setPosition(sf::Vector2f(125, 560)); //pozycje kolejnych kartek
+                teksty[4].setPosition(sf::Vector2f(425, 560));
+                teksty[5].setPosition(sf::Vector2f(725, 560));
+                teksty[6].setPosition(sf::Vector2f(125, 845));
+                teksty[7].setPosition(sf::Vector2f(425, 845));
+                teksty[8].setPosition(sf::Vector2f(725, 845));
+                teksty[9].setPosition(sf::Vector2f(1615, 275));
+                teksty[10].setPosition(sf::Vector2f(1615, 560));
+                teksty[11].setPosition(sf::Vector2f(1615, 845));
+                teksty[9].setString("przejdz 10 km");
+                teksty[10].setString("naucz sie czegos \nnowego");
+                teksty[11].setString("przypomnienie o \nlekach");
 
+                data = localtime(&czas);
+                mktime(data);
+
+                name = "board/";
+                name = name + std::to_string(data->tm_mday) + "a" + std::to_string(data->tm_mon + 1) + "a" + std::to_string(data->tm_year + 1900);
+                std::cout << name << "\n";
+                if (_mkdir(name.c_str()))
+                {
+                    for (int i = 12; i < 21; i++)
+                    {
+                        note = name + "/" + std::to_string(i - 11) + ".txt";
+                        plik.open(note.c_str(), std::ios::in);
+                        std::cout << note << "\n";
+                        if (plik.good())
+                        {
+                            helper = "";
+                            std::getline(plik, line);
+                            std::cout << line << "\n";
+                            if(line == "weight")
+                                objects[i].setTexture(boardweight);
+                            if(line == "book")
+                                objects[i].setTexture(boardbook);
+                            if(line == "health")
+                                objects[i].setTexture(boardhealth);
+                            if(line == "meat")
+                                objects[i].setTexture(boardmeat);
+                            while (getline(plik, line))
+                            {
+                                
+                                std::cout << helper << "\n";
+                                helper = helper + line + "\n";
+                                teksty[i-12].setString(helper);
+                            }
+                        }
+                        plik.close();
+                         //tekstury obrazkow
+                    }
+                    //teksty[0].setString("aadada");
+                }
+                else
+                {
+                    _rmdir(name.c_str());
+                }
+                objects[12].setPosition(sf::Vector2f(125, 215));
+                objects[13].setPosition(sf::Vector2f(425, 215));
+                objects[14].setPosition(sf::Vector2f(725, 215));
+                objects[15].setPosition(sf::Vector2f(125, 500)); //pozycje zdjec
+                objects[16].setPosition(sf::Vector2f(425, 500));
+                objects[17].setPosition(sf::Vector2f(725, 500));
+                objects[18].setPosition(sf::Vector2f(125, 785));
+                objects[19].setPosition(sf::Vector2f(425, 785));
+                objects[20].setPosition(sf::Vector2f(725, 785));
+                objects[21].setPosition(sf::Vector2f(1615, 215));
+                objects[22].setPosition(sf::Vector2f(1615, 500));
+                objects[23].setPosition(sf::Vector2f(1615, 785));
+                objects[21].setTexture(boardweight);
+                objects[22].setTexture(boardbook);
+                objects[23].setTexture(boardhealth);
+
+                objects[24].setTexture(boardup); //przyciski gorne
+                objects[25].setTexture(boardadd);
+                objects[26].setTexture(boarddown);
+
+                objects[24].setPosition(sf::Vector2f(30, 180));
+                objects[25].setPosition(sf::Vector2f(30, 540)); //pozycje przyciskow gornych
+                objects[26].setPosition(sf::Vector2f(30, 930));
+                for (int i = 0; i < 4; i++)
+                {
+                    objects[i + 27].setTexture(buttonback); //ustawienia dla paska funkcji
+                }
+                objects[27].setPosition(sf::Vector2f(250, 30));
+                objects[28].setPosition(sf::Vector2f(631, 30));
+                objects[29].setPosition(sf::Vector2f(1014, 30)); //pozycje dla paska funkcji
+                objects[30].setPosition(sf::Vector2f(1395, 30));
+                //objects[21].setPosition(sf::Vector2f(1395, 30));
+                teksty[12].setString("CALENDAR");
+                teksty[13].setString("MENU");
+                teksty[14].setString("QUEST LIST"); //teksty dla przyciskow gornych
+                teksty[15].setString("QUEST LOG");
+
+                teksty[12].setPosition(sf::Vector2f(255, 30));
+                teksty[13].setPosition(sf::Vector2f(636, 30)); //umiejcowienie przyciskow gornych
+                teksty[14].setPosition(sf::Vector2f(1019, 30));
+                teksty[15].setPosition(sf::Vector2f(1400, 30));
+                /*
                 for (int i = 22; i < 25; i++)
                 {
                     przyciski[i].setSize(sf::Vector2f(50, 50));
@@ -367,24 +480,8 @@ int main()
                 przyciski[25].setFillColor(sf::Color::White);
                 przyciski[25].setSize(sf::Vector2f(5, 820)); //podzialka miedzy sugerowanymi i zwyklymi
                 przyciski[25].setPosition(sf::Vector2f(1128, 200));
-
-                for (int i = 0; i < 4; i++)
-                    teksty.push_back(sf::Text()); //tworzenie wszystkich tekst
-                for (int i = 0; i < 4; i++)
-                {
-                    teksty[i].setFont(font);
-                    teksty[i].setCharacterSize(20);
-                    teksty[i].setFillColor(sf::Color::Black);
-                }
-                teksty[0].setString("CALENDAR");
-                teksty[1].setString("MENU");
-                teksty[2].setString("QUEST LIST"); //teksty dla przyciskow gornych
-                teksty[3].setString("QUEST LOG");
-
-                teksty[0].setPosition(sf::Vector2f(250, 30));
-                teksty[1].setPosition(sf::Vector2f(631, 30)); //umiejcowienie przyciskow gornych
-                teksty[2].setPosition(sf::Vector2f(1014, 30));
-                teksty[3].setPosition(sf::Vector2f(1395, 30));
+                */
+                
             }
             if (state == 2) //quest list
             {
@@ -610,21 +707,34 @@ int main()
         }
         else if (state == 1) //board
         {
-            przyciski[18].setFillColor(sf::Color::Blue);
+            objects[27].setColor(sf::Color::White);
             if (pozycja.x >= 255 && pozycja.x <= 505 && pozycja.y >= 30 && pozycja.y <= 80) //board
-                przyciski[18].setFillColor(sf::Color::Magenta);
+                objects[27].setColor(sf::Color(125, 125, 125, 255));
 
-            przyciski[19].setFillColor(sf::Color::Blue);
+            objects[28].setColor(sf::Color::White);
             if (pozycja.x >= 631 && pozycja.x <= 886 && pozycja.y >= 30 && pozycja.y <= 80) //board
-                przyciski[19].setFillColor(sf::Color::Magenta);
+                objects[28].setColor(sf::Color(125, 125, 125, 255));
 
-            przyciski[20].setFillColor(sf::Color::Blue);
+            objects[29].setColor(sf::Color::White);
             if (pozycja.x >= 1014 && pozycja.x <= 1269 && pozycja.y >= 30 && pozycja.y <= 80) //board
-                przyciski[20].setFillColor(sf::Color::Magenta);
+                objects[29].setColor(sf::Color(125, 125, 125, 255));
 
-            przyciski[21].setFillColor(sf::Color::Blue);
+            objects[30].setColor(sf::Color::White);
             if (pozycja.x >= 1395 && pozycja.x <= 1650 && pozycja.y >= 30 && pozycja.y <= 80) //board
-                przyciski[21].setFillColor(sf::Color::Magenta);
+                objects[30].setColor(sf::Color(125, 125, 125, 255));
+
+            objects[24].setColor(sf::Color::White);
+            if (pozycja.x >= 30 && pozycja.x <= 80 && pozycja.y >= 180 && pozycja.y <= 230) //board
+                objects[24].setColor(sf::Color::Yellow);
+
+            objects[25].setColor(sf::Color::White);
+            if (pozycja.x >= 30 && pozycja.x <= 80 && pozycja.y >= 540 && pozycja.y <= 590) //board
+                objects[25].setColor(sf::Color::Green);
+
+            objects[26].setColor(sf::Color::White);
+            if (pozycja.x >= 30 && pozycja.x <= 80 && pozycja.y >= 930 && pozycja.y <= 980) //board
+                objects[26].setColor(sf::Color::Yellow);
+
         }
         else if (state == 2) //quest list
         {
@@ -998,28 +1108,622 @@ int main()
                 }
                 else if (state == 1) //board
                 {
-                    if (pozycja.x >= 255 && pozycja.x <= 505 && pozycja.y >= 30 && pozycja.y <= 80) //calendar
+                    if (pozycja.x >= 255 && pozycja.x <= 505 && pozycja.y >= 30 && pozycja.y <= 80 && !(adding)) //calendar
                     {
                         std::cout << "przycisk calendar \n";
                         state = 0;
                         change_state = true;
                     }
-                    if (pozycja.x >= 631 && pozycja.x <= 886 && pozycja.y >= 30 && pozycja.y <= 80) //board
+                    if (pozycja.x >= 631 && pozycja.x <= 886 && pozycja.y >= 30 && pozycja.y <= 80 && !(adding)) //board
                     {
                         std::cout << "przycisk menu \n";
                         state = -1;
                         change_state = true;
                     }
-                    if (pozycja.x >= 1014 && pozycja.x <= 1269 && pozycja.y >= 30 && pozycja.y <= 80) //quest list
+                    if (pozycja.x >= 1014 && pozycja.x <= 1269 && pozycja.y >= 30 && pozycja.y <= 80 && !(adding)) //quest list
                     {
                         std::cout << "przycisk quest list \n";
                         state = 2;
                         change_state = true;
                     }
-                    if (pozycja.x >= 1395 && pozycja.x <= 1650 && pozycja.y >= 30 && pozycja.y <= 80) //quest log
+                    if (pozycja.x >= 1395 && pozycja.x <= 1650 && pozycja.y >= 30 && pozycja.y <= 80 && !(adding)) //quest log
                     {
                         std::cout << "przycisk quest log \n";
                         state = 3;
+                        change_state = true;
+                    }
+                    if (pozycja.x >= 30 && pozycja.x <= 80 && pozycja.y >= 180 && pozycja.y <= 230 && !(adding)) //przesowanie w gore
+                    {
+                        if (przesownik >= 3)
+                        {
+                            /*for (int i = 12; i < 21; i++)
+                            {
+                                objects[i].setTexture(free);
+                                teksty[i - 12].setString("");
+                            }*/
+
+                            przesownik -= 3;
+
+                            name = "board/";
+                            name = name + std::to_string(data->tm_mday) + "a" + std::to_string(data->tm_mon + 1) + "a" + std::to_string(data->tm_year + 1900);
+                            std::cout << name << "\n";
+                            if (_mkdir(name.c_str()))
+                            {
+                                for (int i = 12; i < 21; i++)
+                                {
+                                    line = "";
+                                    note = name + "/" + std::to_string(i - 11 + przesownik) + ".txt";
+                                    plik.open(note.c_str(), std::ios::in);
+                                    std::cout << note << "\n";
+                                    if (plik.good())
+                                    {
+                                        helper = "";
+                                        std::getline(plik, line);
+                                        std::cout << line ;
+                                        if (line == "weight")
+                                            objects[i].setTexture(boardweight);
+                                        if (line == "book")
+                                            objects[i].setTexture(boardbook);
+                                        if (line == "health")
+                                            objects[i].setTexture(boardhealth);
+                                        if (line == "meat")
+                                            objects[i].setTexture(boardmeat);
+                                        while (getline(plik, line))
+                                        {
+
+                                            std::cout << helper << "\n";
+                                            helper = helper + line + "\n";
+                                            teksty[i - 12].setString(helper);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        objects[i].setTexture(free);
+                                        teksty[i - 12].setString("");
+                                    }
+                                    plik.close();
+                                    //tekstury obrazkow
+                                }
+                                //teksty[0].setString("aadada");
+                            }
+                            else
+                            {
+                                _rmdir(name.c_str());
+                                
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 30 && pozycja.x <= 80 && pozycja.y >= 930 && pozycja.y <= 980 && !(adding)) //przesowanie w dol
+                    {
+                        /*for (int i = 12; i < 21; i++)
+                        {
+                            objects[i].setTexture(free);
+                            teksty[i - 12].setString("");
+                        }*/
+
+                        przesownik += 3;
+
+                        name = "board/";
+                        name = name + std::to_string(data->tm_mday) + "a" + std::to_string(data->tm_mon + 1) + "a" + std::to_string(data->tm_year + 1900);
+                        std::cout << name << "\n";
+                        if (_mkdir(name.c_str()))
+                        {
+                            for (int i = 12; i < 21; i++)
+                            {
+                                line = "";
+                                note = name + "/" + std::to_string(i - 11 + przesownik) + ".txt";
+                                plik.open(note.c_str(), std::ios::in);
+                                std::cout << note << "\n";
+                                if (plik.good())
+                                {
+                                    helper = "";
+                                    std::getline(plik, line);
+                                    std::cout << line;
+                                    if (line == "weight")
+                                        objects[i].setTexture(boardweight);
+                                    if (line == "book")
+                                        objects[i].setTexture(boardbook);
+                                    if (line == "health")
+                                        objects[i].setTexture(boardhealth);
+                                    if (line == "meat")
+                                        objects[i].setTexture(boardmeat);
+                                    while (getline(plik, line))
+                                    {
+
+                                        std::cout << helper << "\n";
+                                        helper = helper + line + "\n";
+                                        teksty[i - 12].setString(helper);
+                                    }
+                                }
+                                else
+                                {
+                                    objects[i].setTexture(free);
+                                    teksty[i - 12].setString("");
+                                }
+                                plik.close();
+                                //tekstury obrazkow
+                            }
+                            //teksty[0].setString("aadada");
+                        }
+                        else
+                        {
+                            _rmdir(name.c_str());
+                        }
+                    }
+                    if (pozycja.x >= 1600 && pozycja.x <= 1850 && pozycja.y >= 200 && pozycja.y <= 450 && !(adding)) //dodawanie z prawa 1
+                    {
+                        completed = false;
+                        licznik_umieszczanie = 1;
+                        if (_mkdir(name.c_str()))
+                        {
+                            while (!(completed))
+                            {
+                                note = name + "/" + std::to_string(licznik_umieszczanie) + ".txt";
+                                plik.open(note.c_str(), std::ios::in);
+                                if (plik.good())
+                                {
+                                    plik.close();
+                                }
+                                else
+                                {
+                                    plik.close();
+                                    plik.open(note.c_str(), std::ios::out);
+                                    plik << "weight\nprzejdz 10 km";
+                                    completed = true;
+                                    plik.close();
+                                }
+                                licznik_umieszczanie += 1;
+                            }
+                        }
+                        else
+                        {
+                            note = name + "/1.txt";
+                            plik.open(note.c_str(), std::ios::out);
+                            plik << "weight\nprzejdz 10 km";
+                            completed = true;
+                            plik.close();
+                        }
+                       
+                        for (int i = 12; i < 21; i++)
+                        {
+                            line = "";
+                            note = name + "/" + std::to_string(i - 11 + przesownik) + ".txt";
+                            plik.open(note.c_str(), std::ios::in);
+                            std::cout << note << "\n";
+                            if (plik.good())
+                            {
+                                helper = "";
+                                std::getline(plik, line);
+                                std::cout << line;
+                                if (line == "weight")
+                                    objects[i].setTexture(boardweight);
+                                if (line == "book")
+                                    objects[i].setTexture(boardbook);
+                                if (line == "health")
+                                    objects[i].setTexture(boardhealth);
+                                if (line == "meat")
+                                    objects[i].setTexture(boardmeat);
+                                while (getline(plik, line))
+                                {
+
+                                    std::cout << helper << "\n";
+                                    helper = helper + line + "\n";
+                                    teksty[i - 12].setString(helper);
+                                }
+                            }
+                            else
+                            {
+                                objects[i].setTexture(free);
+                                teksty[i - 12].setString("");
+                            }
+                            plik.close();
+                            //tekstury obrazkow
+                        }
+                    }
+                    if (pozycja.x >= 1600 && pozycja.x <= 1850 && pozycja.y >= 485 && pozycja.y <= 735 && !(adding)) //dodawanie z prawa 2
+                    {
+                        completed = false;
+                        licznik_umieszczanie = 1;
+                        if (_mkdir(name.c_str()))
+                        {
+                            while (!(completed))
+                            {
+                                note = name + "/" + std::to_string(licznik_umieszczanie) + ".txt";
+                                plik.open(note.c_str(), std::ios::in);
+                                if (plik.good())
+                                {
+                                    plik.close();
+                                }
+                                else
+                                {
+                                    plik.close();
+                                    plik.open(note.c_str(), std::ios::out);
+                                    plik << "book\nnaucz sie czegos\nnowego";
+                                    completed = true;
+                                    plik.close();
+                                }
+                                licznik_umieszczanie += 1;
+                            }
+                        }
+                        else
+                        {
+                            note = name + "/1.txt";
+                            plik.open(note.c_str(), std::ios::out);
+                            plik << "book\nnaucz sie czegos\nnowego";
+                            completed = true;
+                            plik.close();
+                        }
+
+                        for (int i = 12; i < 21; i++)
+                        {
+                            line = "";
+                            note = name + "/" + std::to_string(i - 11 + przesownik) + ".txt";
+                            plik.open(note.c_str(), std::ios::in);
+                            std::cout << note << "\n";
+                            if (plik.good())
+                            {
+                                helper = "";
+                                std::getline(plik, line);
+                                std::cout << line;
+                                if (line == "weight")
+                                    objects[i].setTexture(boardweight);
+                                if (line == "book")
+                                    objects[i].setTexture(boardbook);
+                                if (line == "health")
+                                    objects[i].setTexture(boardhealth);
+                                if (line == "meat")
+                                    objects[i].setTexture(boardmeat);
+                                while (getline(plik, line))
+                                {
+
+                                    std::cout << helper << "\n";
+                                    helper = helper + line + "\n";
+                                    teksty[i - 12].setString(helper);
+                                }
+                            }
+                            else
+                            {
+                                objects[i].setTexture(free);
+                                teksty[i - 12].setString("");
+                            }
+                            plik.close();
+                            //tekstury obrazkow
+                        }
+                    }
+                    if (pozycja.x >= 1600 && pozycja.x <= 1850 && pozycja.y >= 770 && pozycja.y <= 1020 && !(adding)) //dodawanie z prawa 3
+                    {
+                        completed = false;
+                        licznik_umieszczanie = 1;
+                        if (_mkdir(name.c_str()))
+                        {
+                            while (!(completed))
+                            {
+                                note = name + "/" + std::to_string(licznik_umieszczanie) + ".txt";
+                                plik.open(note.c_str(), std::ios::in);
+                                if (plik.good())
+                                {
+                                    plik.close();
+                                }
+                                else
+                                {
+                                    plik.close();
+                                    plik.open(note.c_str(), std::ios::out);
+                                    plik << "health\nprzypomnienie o\nlekach";
+                                    completed = true;
+                                    plik.close();
+                                }
+                                licznik_umieszczanie += 1;
+                            }
+                        }
+                        else
+                        {
+                            note = name + "/1.txt";
+                            plik.open(note.c_str(), std::ios::out);
+                            plik << "health\nprzypomnienie o\nlekach";
+                            completed = true;
+                            plik.close();
+                        }
+
+                        for (int i = 12; i < 21; i++)
+                        {
+                            line = "";
+                            note = name + "/" + std::to_string(i - 11 + przesownik) + ".txt";
+                            plik.open(note.c_str(), std::ios::in);
+                            std::cout << note << "\n";
+                            if (plik.good())
+                            {
+                                helper = "";
+                                std::getline(plik, line);
+                                std::cout << line;
+                                if (line == "weight")
+                                    objects[i].setTexture(boardweight);
+                                if (line == "book")
+                                    objects[i].setTexture(boardbook);
+                                if (line == "health")
+                                    objects[i].setTexture(boardhealth);
+                                if (line == "meat")
+                                    objects[i].setTexture(boardmeat);
+                                while (getline(plik, line))
+                                {
+
+                                    std::cout << helper << "\n";
+                                    helper = helper + line + "\n";
+                                    teksty[i - 12].setString(helper);
+                                }
+                            }
+                            else
+                            {
+                                objects[i].setTexture(free);
+                                teksty[i - 12].setString("");
+                            }
+                            plik.close();
+                            //tekstury obrazkow
+                        }
+                    }
+                    if (pozycja.x >= 30 && pozycja.x <= 80 && pozycja.y >= 540 && pozycja.y <= 590 && !(adding)) //wysuniecie okna
+                    {
+                        adding = true;
+                        addoner[4].setPosition(sf::Vector2f(825, 375));
+                        addoner[0].setPosition(sf::Vector2f(840, 390));
+                        addoner[1].setPosition(sf::Vector2f(840, 446));
+                        addoner[2].setPosition(sf::Vector2f(840, 502));
+                        addoner[3].setPosition(sf::Vector2f(840, 558));
+                        licznik_wysokosc = 1;
+                        playerInput = "";
+
+                    }
+                    if (pozycja.x >= 30 && pozycja.x <= 80 && pozycja.y >= 540 && pozycja.y <= 590 && texting) //zapis i chowanie okna
+                    {
+                        std::cout << note;
+                        plik.open(note.c_str(), std::ios::out | std::ios::app);
+                        helper = tekst.getString();
+                        plik << helper;
+                        plik.close();
+                        addoner[0].setPosition(sf::Vector2f(2000, 1100));
+                        addoner[1].setPosition(sf::Vector2f(2000, 1100));
+                        addoner[2].setPosition(sf::Vector2f(2000, 1100));
+                        addoner[3].setPosition(sf::Vector2f(2000, 1100));
+                        addoner[4].setPosition(sf::Vector2f(2000, 1100));
+                        tekst.setPosition(sf::Vector2f(2000, 1100));
+                        
+                        
+                        std::cout << "przycisk menu \n";
+                        state = 1;
+                        change_state = true;
+                        texting = false;
+                        adding = false;
+
+                    }
+                    if (pozycja.x >= 840 && pozycja.x <= 1060 && pozycja.y >= 390 && pozycja.y <= 440 && adding && !(texting)) //wybor obrazek 1
+                    {
+                        //std::cout << "powiodlo sie";
+                        addoner[0].setPosition(sf::Vector2f(840, 390));
+                        addoner[1].setPosition(sf::Vector2f(2000, 1100));
+                        addoner[2].setPosition(sf::Vector2f(2000, 1100));
+                        addoner[3].setPosition(sf::Vector2f(2000, 1100));
+                        texting = true;
+                        tekst.setPosition(sf::Vector2f(840, 450));
+
+                        completed = false;
+                        licznik_umieszczanie = 1;
+                        if (_mkdir(name.c_str()))
+                        {
+                            while (!(completed))
+                            {
+                                note = name + "/" + std::to_string(licznik_umieszczanie) + ".txt";
+                                plik.open(note.c_str(), std::ios::in);
+                                if (plik.good())
+                                {
+                                    plik.close();
+                                }
+                                else
+                                {
+                                    plik.close();
+                                    plik.open(note.c_str(), std::ios::out);
+                                    plik << "meat\n";
+                                    completed = true;
+                                    plik.close();
+                                }
+                                licznik_umieszczanie += 1;
+                            }
+                        }
+                        else
+                        {
+                            note = name + "/1.txt";
+                            plik.open(note.c_str(), std::ios::out);
+                            plik << "meat\n";
+                            completed = true;
+                            plik.close();
+                        }
+
+                    }
+                    if (pozycja.x >= 840 && pozycja.x <= 1060 && pozycja.y >= 446 && pozycja.y <= 496 && adding && !(texting)) //wybor obrazek 2
+                    {
+                        //std::cout << "powiodlo sie";
+                        addoner[1].setPosition(sf::Vector2f(840, 390));
+                        addoner[0].setPosition(sf::Vector2f(2000, 1100));
+                        addoner[2].setPosition(sf::Vector2f(2000, 1100));
+                        addoner[3].setPosition(sf::Vector2f(2000, 1100));
+                        texting = true;
+                        tekst.setPosition(sf::Vector2f(840, 450));
+
+                        completed = false;
+                        licznik_umieszczanie = 1;
+                        if (_mkdir(name.c_str()))
+                        {
+                            while (!(completed))
+                            {
+                                note = name + "/" + std::to_string(licznik_umieszczanie) + ".txt";
+                                plik.open(note.c_str(), std::ios::in);
+                                if (plik.good())
+                                {
+                                    plik.close();
+                                }
+                                else
+                                {
+                                    plik.close();
+                                    plik.open(note.c_str(), std::ios::out);
+                                    plik << "health\n";
+                                    completed = true;
+                                    plik.close();
+                                }
+                                licznik_umieszczanie += 1;
+                            }
+                        }
+                        else
+                        {
+                            note = name + "/1.txt";
+                            plik.open(note.c_str(), std::ios::out);
+                            plik << "health\n";
+                            completed = true;
+                            plik.close();
+                        }
+                    }
+                    if (pozycja.x >= 840 && pozycja.x <= 1060 && pozycja.y >= 502 && pozycja.y <= 552 && adding && !(texting)) //wybor obrazek 3
+                    {
+                        //std::cout << "powiodlo sie";
+                        addoner[2].setPosition(sf::Vector2f(840, 390));
+                        addoner[1].setPosition(sf::Vector2f(2000, 1100));
+                        addoner[0].setPosition(sf::Vector2f(2000, 1100));
+                        addoner[3].setPosition(sf::Vector2f(2000, 1100));
+                        texting = true;
+                        tekst.setPosition(sf::Vector2f(840, 450));
+
+                        completed = false;
+                        licznik_umieszczanie = 1;
+                        if (_mkdir(name.c_str()))
+                        {
+                            while (!(completed))
+                            {
+                                note = name + "/" + std::to_string(licznik_umieszczanie) + ".txt";
+                                plik.open(note.c_str(), std::ios::in);
+                                if (plik.good())
+                                {
+                                    plik.close();
+                                }
+                                else
+                                {
+                                    plik.close();
+                                    plik.open(note.c_str(), std::ios::out);
+                                    plik << "weight\n";
+                                    completed = true;
+                                    plik.close();
+                                }
+                                licznik_umieszczanie += 1;
+                            }
+                        }
+                        else
+                        {
+                            note = name + "/1.txt";
+                            plik.open(note.c_str(), std::ios::out);
+                            plik << "weight\n";
+                            completed = true;
+                            plik.close();
+                        }
+                    }
+                    if (pozycja.x >= 840 && pozycja.x <= 1060 && pozycja.y >= 558 && pozycja.y <= 608 && adding && !(texting)) //wybor obrazek 4
+                    {
+                        //std::cout << "powiodlo sie";
+                        addoner[3].setPosition(sf::Vector2f(840, 390));
+                        addoner[1].setPosition(sf::Vector2f(2000, 1100));
+                        addoner[2].setPosition(sf::Vector2f(2000, 1100));
+                        addoner[0].setPosition(sf::Vector2f(2000, 1100));
+                        texting = true;
+                        tekst.setPosition(sf::Vector2f(840, 450));
+
+                        completed = false;
+                        licznik_umieszczanie = 1;
+                        if (_mkdir(name.c_str()))
+                        {
+                            while (!(completed))
+                            {
+                                note = name + "/" + std::to_string(licznik_umieszczanie) + ".txt";
+                                plik.open(note.c_str(), std::ios::in);
+                                if (plik.good())
+                                {
+                                    plik.close();
+                                }
+                                else
+                                {
+                                    plik.close();
+                                    plik.open(note.c_str(), std::ios::out);
+                                    plik << "book\n";
+                                    completed = true;
+                                    plik.close();
+                                }
+                                licznik_umieszczanie += 1;
+                            }
+                        }
+                        else
+                        {
+                            note = name + "/1.txt";
+                            plik.open(note.c_str(), std::ios::out);
+                            plik << "book\n";
+                            completed = true;
+                            plik.close();
+                        }
+                    }
+                    if (pozycja.x >= 110 && pozycja.x <= 360 && pozycja.y >= 200 && pozycja.y <= 450 && !(adding)) //zalicz zad 1
+                    {
+                        note = name + "/" + std::to_string(1 + przesownik) + ".txt";
+                        remove(note.c_str());
+                        state = 1;
+                        change_state = true;
+                    }
+                    if (pozycja.x >= 410 && pozycja.x <= 660 && pozycja.y >= 200 && pozycja.y <= 450 && !(adding)) //zalicz zad 2
+                    {
+                        note = name + "/" + std::to_string(2 + przesownik) + ".txt";
+                        remove(note.c_str());
+                        state = 1;
+                        change_state = true;
+                    }
+                    if (pozycja.x >= 710 && pozycja.x <= 960 && pozycja.y >= 200 && pozycja.y <= 450 && !(adding)) //zalicz zad 3
+                    {
+                        note = name + "/" + std::to_string(3 + przesownik) + ".txt";
+                        remove(note.c_str());
+                        state = 1;
+                        change_state = true;
+                    }
+                    if (pozycja.x >= 110 && pozycja.x <= 360 && pozycja.y >= 485 && pozycja.y <= 735 && !(adding)) //zalicz zad 4
+                    {
+                        note = name + "/" + std::to_string(4 + przesownik) + ".txt";
+                        remove(note.c_str());
+                        state = 1;
+                        change_state = true;
+                    }
+                    if (pozycja.x >= 410 && pozycja.x <= 660 && pozycja.y >= 485 && pozycja.y <= 735 && !(adding)) //zalicz zad 5
+                    {
+                        note = name + "/" + std::to_string(5 + przesownik) + ".txt";
+                        remove(note.c_str());
+                        state = 1;
+                        change_state = true;
+                    }
+                    if (pozycja.x >= 710 && pozycja.x <= 960 && pozycja.y >= 485 && pozycja.y <= 735 && !(adding)) //zalicz zad 6
+                    {
+                        note = name + "/" + std::to_string(6 + przesownik) + ".txt";
+                        remove(note.c_str());
+                        state = 1;
+                        change_state = true;
+                    }
+                    if (pozycja.x >= 110 && pozycja.x <= 360 && pozycja.y >= 770 && pozycja.y <= 1020 && !(adding)) //zalicz zad 7
+                    {
+                        note = name + "/" + std::to_string(7 + przesownik) + ".txt";
+                        remove(note.c_str());
+                        state = 1;
+                        change_state = true;
+                    }
+                    if (pozycja.x >= 410 && pozycja.x <= 660 && pozycja.y >= 770 && pozycja.y <= 1020 && !(adding)) //zalicz zad 8
+                    {
+                        note = name + "/" + std::to_string(8 + przesownik) + ".txt";
+                        remove(note.c_str());
+                        state = 1;
+                        change_state = true;
+                    }
+                    if (pozycja.x >= 710 && pozycja.x <= 960 && pozycja.y >= 770 && pozycja.y <= 1020 && !(adding)) //zalicz zad 9
+                    {
+                        note = name + "/" + std::to_string(9 + przesownik) + ".txt";
+                        remove(note.c_str());
+                        state = 1;
                         change_state = true;
                     }
                 }
@@ -1093,28 +1797,43 @@ int main()
                 window.close();
 
             //pisanie tekstu
-            if (event.type == sf::Event::TextEntered)
+            if (event.type == sf::Event::TextEntered) //wysokosc max 8
             {
-                if (event.text.unicode == '\b')
+                if (texting)
                 {
-                    if(playerInput.getSize() != 0)
-                        playerInput.erase(playerInput.getSize() - 1, 1);
-                    tekst.setString(playerInput);
-                }
-                else if (event.text.unicode == '\r')
-                {
-                    playerInput += "\n";
-                }
-                else if (event.text.unicode < 128)
-                {
-                    playerInput += event.text.unicode;
-                    tekst.setString(playerInput); //postawienie znaku
-                    if (tekst.findCharacterPos(playerInput.getSize() + 1).x >= szerokosc) //test czy nie wychodzi poza limit
+                    if (event.text.unicode == '\b')
                     {
-                        przenoszenie = playerInput[playerInput.getSize() - 1]; //usuniecie znaku, dodanie \n i przywrocenie znaku na koncu
-                        playerInput.erase(playerInput.getSize() - 1, 1);
-                        playerInput += "\n";
-                        playerInput += przenoszenie;
+                        if (playerInput.getSize() != 0)
+                            playerInput.erase(playerInput.getSize() - 1, 1);
+                        tekst.setString(playerInput);
+                    }
+                    else if (event.text.unicode == '\r')
+                    {
+                        if (licznik_wysokosc < 8)
+                        {
+                            playerInput += "\n";
+                            licznik_wysokosc += 1;
+                        }
+                    }
+                    else if (event.text.unicode < 128)
+                    {
+                        playerInput += event.text.unicode;
+                        tekst.setString(playerInput); //postawienie znaku
+                        if (tekst.findCharacterPos(playerInput.getSize() + 1).x >= 840 + szerokosc) //test czy nie wychodzi poza limit
+                        {
+                            if (licznik_wysokosc < 8)
+                            {
+                                przenoszenie = playerInput[playerInput.getSize() - 1]; //usuniecie znaku, dodanie \n i przywrocenie znaku na koncu
+                                playerInput.erase(playerInput.getSize() - 1, 1);
+                                playerInput += "\n";
+                                playerInput += przenoszenie;
+                                licznik_wysokosc += 1;
+                            }
+                            else
+                            {
+                                playerInput.erase(playerInput.getSize() - 1, 1);
+                            }
+                        }
                     }
                 }
             }//koniec pisania tekstu
@@ -1132,6 +1851,12 @@ int main()
 
         for (int i = 0; i < teksty.size(); i++)
             window.draw(teksty[i]);
+        window.draw(addoner[4]);
+        window.draw(addoner[0]);
+        window.draw(addoner[1]);
+        window.draw(addoner[2]);
+        window.draw(addoner[3]);
+        window.draw(tekst);
         window.display();
     }
 
