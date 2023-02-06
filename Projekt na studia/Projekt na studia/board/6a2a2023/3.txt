@@ -1,4 +1,0 @@
-book
-test 
-troche tekstu
-aaa
