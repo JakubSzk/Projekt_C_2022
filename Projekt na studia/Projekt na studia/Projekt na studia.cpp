@@ -47,7 +47,8 @@ int main()
     std::fstream plik;
     time(&czas);
     data = localtime(&czas);
-
+    int dzien = 0, rok = 0, miesiac = 0;
+    bool zkal = false;
 
     shape.setFillColor(sf::Color::Green);
     sf::Font font;
@@ -266,6 +267,8 @@ int main()
                         }
                         plik.close();
                     }
+                    for (int i = 1; i <= dni; i++)
+                        teksty[i + data->tm_wday + 5].setString(std::to_string(i));
                 }
                 for (int i = 0; i < 42; i++)
                 {
@@ -383,6 +386,12 @@ int main()
                 teksty[11].setString("przypomnienie o \nlekach");
 
                 data = localtime(&czas);
+                if (zkal)
+                {
+                    data->tm_year = rok;
+                    data->tm_mon = miesiac;
+                    data->tm_mday = dzien;
+                }
                 mktime(data);
 
                 name = "board/";
@@ -637,7 +646,7 @@ int main()
 
                 teksty[0].setFont(font);
                 teksty[0].setCharacterSize(20);
-                teksty[0].setFillColor(sf::Color::White);
+                teksty[0].setFillColor(sf::Color::Black);
                 teksty[0].setPosition(sf::Vector2f(633, 500));
                 teksty[0].setString("Jakub Szklarz");
 
@@ -1104,7 +1113,1014 @@ int main()
                         }
                         teksty[46].setString(calendarmonth);
                     }
-                    
+                    if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 180 && pozycja.y <= 316) //pon1
+                    {
+                        if (objects[0].getTexture() == &calendarblue || objects[0].getTexture() == &calendargreen || objects[0].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 2 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 2 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 180 && pozycja.y <= 316) //wt1
+                    {
+                        if (objects[1].getTexture() == &calendarblue || objects[1].getTexture() == &calendargreen || objects[1].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 3 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 3 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 180 && pozycja.y <= 316) //sr1
+                    {
+                        if (objects[2].getTexture() == &calendarblue || objects[2].getTexture() == &calendargreen || objects[2].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 4 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 4 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 180 && pozycja.y <= 316) //czw1
+                    {
+                        if (objects[3].getTexture() == &calendarblue || objects[3].getTexture() == &calendargreen || objects[3].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 5 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 5 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 180 && pozycja.y <= 316) //pt1
+                    {
+                        if (objects[4].getTexture() == &calendarblue || objects[4].getTexture() == &calendargreen || objects[4].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 6 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 6 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 180 && pozycja.y <= 316) //sob1
+                    {
+                        if (objects[5].getTexture() == &calendarblue || objects[5].getTexture() == &calendargreen || objects[5].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 7 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 7 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 180 && pozycja.y <= 316) //nd1
+                    {
+                        if (objects[6].getTexture() == &calendarblue || objects[6].getTexture() == &calendargreen || objects[6].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 8 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 8 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 316 && pozycja.y <= 452) //pon2
+                    {
+                        if (objects[7].getTexture() == &calendarblue || objects[7].getTexture() == &calendargreen || objects[7].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 9 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 9 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 316 && pozycja.y <= 452) //wt2
+                    {
+                        if (objects[8].getTexture() == &calendarblue || objects[8].getTexture() == &calendargreen || objects[8].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 10 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 10 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 316 && pozycja.y <= 452) //sr2
+                    {
+                        if (objects[9].getTexture() == &calendarblue || objects[9].getTexture() == &calendargreen || objects[9].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 11 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 11 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 316 && pozycja.y <= 452) //czw2
+                    {
+                        if (objects[10].getTexture() == &calendarblue || objects[10].getTexture() == &calendargreen || objects[10].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 12 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 12 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 316 && pozycja.y <= 452) //pt2
+                    {
+                        if (objects[11].getTexture() == &calendarblue || objects[11].getTexture() == &calendargreen || objects[11].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 13 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 13 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 316 && pozycja.y <= 452) //sob2
+                    {
+                        if (objects[12].getTexture() == &calendarblue || objects[12].getTexture() == &calendargreen || objects[12].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 14 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 14 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 316 && pozycja.y <= 452) //nd2
+                    {
+                        if (objects[13].getTexture() == &calendarblue || objects[13].getTexture() == &calendargreen || objects[13].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 15 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 15 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 452 && pozycja.y <= 588) //pon3
+                    {
+                        if (objects[14].getTexture() == &calendarblue || objects[14].getTexture() == &calendargreen || objects[14].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 16 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 16 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 452 && pozycja.y <= 588) //wt3
+                    {
+                        if (objects[15].getTexture() == &calendarblue || objects[15].getTexture() == &calendargreen || objects[15].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 17 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 17 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 452 && pozycja.y <= 588) //sr3
+                    {
+                        if (objects[16].getTexture() == &calendarblue || objects[16].getTexture() == &calendargreen || objects[16].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 18 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 18 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 452 && pozycja.y <= 588) //czw3
+                    {
+                        if (objects[17].getTexture() == &calendarblue || objects[17].getTexture() == &calendargreen || objects[17].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 19 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 19 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 452 && pozycja.y <= 588) //pt3
+                    {
+                        if (objects[18].getTexture() == &calendarblue || objects[18].getTexture() == &calendargreen || objects[18].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 20 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 20 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 452 && pozycja.y <= 588) //sob3
+                    {
+                        if (objects[19].getTexture() == &calendarblue || objects[19].getTexture() == &calendargreen || objects[19].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 21 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 21 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 452 && pozycja.y <= 588) //nd3
+                    {
+                        if (objects[20].getTexture() == &calendarblue || objects[20].getTexture() == &calendargreen || objects[20].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 22 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 22 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 588 && pozycja.y <= 724) //pon4
+                    {
+                        if (objects[21].getTexture() == &calendarblue || objects[21].getTexture() == &calendargreen || objects[21].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 23 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 23 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 588 && pozycja.y <= 724) //wt4
+                    {
+                        if (objects[22].getTexture() == &calendarblue || objects[22].getTexture() == &calendargreen || objects[22].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 24 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 24 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 588 && pozycja.y <= 724) //sr4
+                    {
+                        if (objects[23].getTexture() == &calendarblue || objects[23].getTexture() == &calendargreen || objects[23].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 25 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 25 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 588 && pozycja.y <= 724) //czw4
+                    {
+                        if (objects[24].getTexture() == &calendarblue || objects[24].getTexture() == &calendargreen || objects[24].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 26 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 26 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 588 && pozycja.y <= 724) //pt4
+                    {
+                        if (objects[25].getTexture() == &calendarblue || objects[25].getTexture() == &calendargreen || objects[25].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 27 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 27 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 588 && pozycja.y <= 724) //sob4
+                    {
+                        if (objects[26].getTexture() == &calendarblue || objects[26].getTexture() == &calendargreen || objects[26].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 28 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 28 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 588 && pozycja.y <= 724) //nd4
+                    {
+                        if (objects[27].getTexture() == &calendarblue || objects[27].getTexture() == &calendargreen || objects[27].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 29 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 29 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 724 && pozycja.y <= 860) //pon5
+                    {
+                        if (objects[28].getTexture() == &calendarblue || objects[28].getTexture() == &calendargreen || objects[28].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 30 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 30 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 724 && pozycja.y <= 860) //wt5
+                    {
+                        if (objects[29].getTexture() == &calendarblue || objects[29].getTexture() == &calendargreen || objects[29].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 31 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 31 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 724 && pozycja.y <= 860) //sr5
+                    {
+                        if (objects[30].getTexture() == &calendarblue || objects[30].getTexture() == &calendargreen || objects[30].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 32 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 32 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 724 && pozycja.y <= 860) //czw5
+                    {
+                        if (objects[31].getTexture() == &calendarblue || objects[31].getTexture() == &calendargreen || objects[31].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 33 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 33 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 724 && pozycja.y <= 860) //pt5
+                    {
+                        if (objects[32].getTexture() == &calendarblue || objects[32].getTexture() == &calendargreen || objects[32].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 34 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 34 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 724 && pozycja.y <= 860) //sob5
+                    {
+                        if (objects[33].getTexture() == &calendarblue || objects[33].getTexture() == &calendargreen || objects[33].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 35 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 35 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 724 && pozycja.y <= 860) //nd5
+                    {
+                        if (objects[34].getTexture() == &calendarblue || objects[34].getTexture() == &calendargreen || objects[34].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 36 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 36 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 724 && pozycja.y <= 860) //pon6
+                    {
+                        if (objects[35].getTexture() == &calendarblue || objects[35].getTexture() == &calendargreen || objects[35].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 37 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 37 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 724 && pozycja.y <= 860) //wt6
+                    {
+                        if (objects[36].getTexture() == &calendarblue || objects[36].getTexture() == &calendargreen || objects[36].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 38 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 38 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 724 && pozycja.y <= 860) //sr6
+                    {
+                        if (objects[37].getTexture() == &calendarblue || objects[37].getTexture() == &calendargreen || objects[37].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 39 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 39 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 724 && pozycja.y <= 860) //czw6
+                    {
+                        if (objects[38].getTexture() == &calendarblue || objects[38].getTexture() == &calendargreen || objects[38].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 40 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 40 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 724 && pozycja.y <= 860) //pt6
+                    {
+                        if (objects[39].getTexture() == &calendarblue || objects[39].getTexture() == &calendargreen || objects[39].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 41 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 41 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 724 && pozycja.y <= 860) //sob6
+                    {
+                        if (objects[40].getTexture() == &calendarblue || objects[40].getTexture() == &calendargreen || objects[40].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 42 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 42 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
+                    if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 724 && pozycja.y <= 860) //nd6
+                    {
+                        if (objects[41].getTexture() == &calendarblue || objects[41].getTexture() == &calendargreen || objects[41].getTexture() == &calendarred)
+                        {
+                            if (data->tm_wday != 0)
+                            {
+                                dzien = 43 - data->tm_wday;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                            else
+                            {
+                                dzien = 43 - 7;
+                                miesiac = data->tm_mon;
+                                rok = data->tm_year;
+                                change_state = true;
+                                state = 1;
+                                zkal = true;
+                            }
+                        }
+                    }
                 }
                 else if (state == 1) //board
                 {
@@ -1795,6 +2811,1958 @@ int main()
 
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            if (event.type == sf::Event::KeyPressed)
+            {
+                if (state == 0)
+                {
+                    if (event.key.code == sf::Keyboard::G)
+                    {
+                        if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 180 && pozycja.y <= 316) //pon1
+                        {
+                            if (objects[0].getTexture() == &calendarblue || objects[0].getTexture() == &calendargreen || objects[0].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 2 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 2 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 180 && pozycja.y <= 316) //wt1
+                        {
+                            if (objects[1].getTexture() == &calendarblue || objects[1].getTexture() == &calendargreen || objects[1].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 3 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 3 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 180 && pozycja.y <= 316) //sr1
+                        {
+                            if (objects[2].getTexture() == &calendarblue || objects[2].getTexture() == &calendargreen || objects[2].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 4 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 4 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 180 && pozycja.y <= 316) //czw1
+                        {
+                            if (objects[3].getTexture() == &calendarblue || objects[3].getTexture() == &calendargreen || objects[3].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 5 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 5 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 180 && pozycja.y <= 316) //pt1
+                        {
+                            if (objects[4].getTexture() == &calendarblue || objects[4].getTexture() == &calendargreen || objects[4].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 6 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 6 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 180 && pozycja.y <= 316) //sob1
+                        {
+                            if (objects[5].getTexture() == &calendarblue || objects[5].getTexture() == &calendargreen || objects[5].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 7 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 7 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 180 && pozycja.y <= 316) //nd1
+                        {
+                            if (objects[6].getTexture() == &calendarblue || objects[6].getTexture() == &calendargreen || objects[6].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 8 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 8 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 316 && pozycja.y <= 452) //pon2
+                        {
+                            if (objects[7].getTexture() == &calendarblue || objects[7].getTexture() == &calendargreen || objects[7].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 9 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 9 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 316 && pozycja.y <= 452) //wt2
+                        {
+                            if (objects[8].getTexture() == &calendarblue || objects[8].getTexture() == &calendargreen || objects[8].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 10 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 10 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 316 && pozycja.y <= 452) //sr2
+                        {
+                            if (objects[9].getTexture() == &calendarblue || objects[9].getTexture() == &calendargreen || objects[9].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 11 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 11 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 316 && pozycja.y <= 452) //czw2
+                        {
+                            if (objects[10].getTexture() == &calendarblue || objects[10].getTexture() == &calendargreen || objects[10].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 12 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 12 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 316 && pozycja.y <= 452) //pt2
+                        {
+                            if (objects[11].getTexture() == &calendarblue || objects[11].getTexture() == &calendargreen || objects[11].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 13 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 13 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 316 && pozycja.y <= 452) //sob2
+                        {
+                            if (objects[12].getTexture() == &calendarblue || objects[12].getTexture() == &calendargreen || objects[12].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 14 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+
+                                }
+                                else
+                                {
+                                    dzien = 14 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 316 && pozycja.y <= 452) //nd2
+                        {
+                            if (objects[13].getTexture() == &calendarblue || objects[13].getTexture() == &calendargreen || objects[13].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 15 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 15 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 452 && pozycja.y <= 588) //pon3
+                        {
+                            if (objects[14].getTexture() == &calendarblue || objects[14].getTexture() == &calendargreen || objects[14].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 16 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 16 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 452 && pozycja.y <= 588) //wt3
+                        {
+                            if (objects[15].getTexture() == &calendarblue || objects[15].getTexture() == &calendargreen || objects[15].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 17 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 17 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 452 && pozycja.y <= 588) //sr3
+                        {
+                            if (objects[16].getTexture() == &calendarblue || objects[16].getTexture() == &calendargreen || objects[16].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 18 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 18 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 452 && pozycja.y <= 588) //czw3
+                        {
+                            if (objects[17].getTexture() == &calendarblue || objects[17].getTexture() == &calendargreen || objects[17].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 19 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 19 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 452 && pozycja.y <= 588) //pt3
+                        {
+                            if (objects[18].getTexture() == &calendarblue || objects[18].getTexture() == &calendargreen || objects[18].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 20 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 20 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 452 && pozycja.y <= 588) //sob3
+                        {
+                            if (objects[19].getTexture() == &calendarblue || objects[19].getTexture() == &calendargreen || objects[19].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 21 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 21 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 452 && pozycja.y <= 588) //nd3
+                        {
+                            if (objects[20].getTexture() == &calendarblue || objects[20].getTexture() == &calendargreen || objects[20].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 22 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 22 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 588 && pozycja.y <= 724) //pon4
+                        {
+                            if (objects[21].getTexture() == &calendarblue || objects[21].getTexture() == &calendargreen || objects[21].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 23 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 23 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 588 && pozycja.y <= 724) //wt4
+                        {
+                            if (objects[22].getTexture() == &calendarblue || objects[22].getTexture() == &calendargreen || objects[22].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 24 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 24 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 588 && pozycja.y <= 724) //sr4
+                        {
+                            if (objects[23].getTexture() == &calendarblue || objects[23].getTexture() == &calendargreen || objects[23].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 25 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 25 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 588 && pozycja.y <= 724) //czw4
+                        {
+                            if (objects[24].getTexture() == &calendarblue || objects[24].getTexture() == &calendargreen || objects[24].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 26 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 26 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 588 && pozycja.y <= 724) //pt4
+                        {
+                            if (objects[25].getTexture() == &calendarblue || objects[25].getTexture() == &calendargreen || objects[25].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 27 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 27 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 588 && pozycja.y <= 724) //sob4
+                        {
+                            if (objects[26].getTexture() == &calendarblue || objects[26].getTexture() == &calendargreen || objects[26].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 28 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 28 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 588 && pozycja.y <= 724) //nd4
+                        {
+                            if (objects[27].getTexture() == &calendarblue || objects[27].getTexture() == &calendargreen || objects[27].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 29 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 29 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 724 && pozycja.y <= 860) //pon5
+                        {
+                            if (objects[28].getTexture() == &calendarblue || objects[28].getTexture() == &calendargreen || objects[28].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 30 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 30 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 724 && pozycja.y <= 860) //wt5
+                        {
+                            if (objects[29].getTexture() == &calendarblue || objects[29].getTexture() == &calendargreen || objects[29].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 31 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 31 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 724 && pozycja.y <= 860) //sr5
+                        {
+                            if (objects[30].getTexture() == &calendarblue || objects[30].getTexture() == &calendargreen || objects[30].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 32 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 32 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 724 && pozycja.y <= 860) //czw5
+                        {
+                            if (objects[31].getTexture() == &calendarblue || objects[31].getTexture() == &calendargreen || objects[31].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 33 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 33 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 724 && pozycja.y <= 860) //pt5
+                        {
+                            if (objects[32].getTexture() == &calendarblue || objects[32].getTexture() == &calendargreen || objects[32].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 34 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 34 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 724 && pozycja.y <= 860) //sob5
+                        {
+                            if (objects[33].getTexture() == &calendarblue || objects[33].getTexture() == &calendargreen || objects[33].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 35 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 35 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 724 && pozycja.y <= 860) //nd5
+                        {
+                            if (objects[34].getTexture() == &calendarblue || objects[34].getTexture() == &calendargreen || objects[34].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 36 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 36 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 724 && pozycja.y <= 860) //pon6
+                        {
+                            if (objects[35].getTexture() == &calendarblue || objects[35].getTexture() == &calendargreen || objects[35].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 37 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 37 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 724 && pozycja.y <= 860) //wt6
+                        {
+                            if (objects[36].getTexture() == &calendarblue || objects[36].getTexture() == &calendargreen || objects[36].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 38 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 38 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 724 && pozycja.y <= 860) //sr6
+                        {
+                            if (objects[37].getTexture() == &calendarblue || objects[37].getTexture() == &calendargreen || objects[37].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 39 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 39 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 724 && pozycja.y <= 860) //czw6
+                        {
+                            if (objects[38].getTexture() == &calendarblue || objects[38].getTexture() == &calendargreen || objects[38].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 40 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 40 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 724 && pozycja.y <= 860) //pt6
+                        {
+                            if (objects[39].getTexture() == &calendarblue || objects[39].getTexture() == &calendargreen || objects[39].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 41 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 41 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 724 && pozycja.y <= 860) //sob6
+                        {
+                            if (objects[40].getTexture() == &calendarblue || objects[40].getTexture() == &calendargreen || objects[40].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 42 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 42 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 724 && pozycja.y <= 860) //nd6
+                        {
+                            if (objects[41].getTexture() == &calendarblue || objects[41].getTexture() == &calendargreen || objects[41].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 43 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 43 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "green";
+                                plik.close();
+                            }
+                        }
+                        change_state = true;
+                        state = 0;
+                    }
+                    if (event.key.code == sf::Keyboard::R)
+                    {
+                        if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 180 && pozycja.y <= 316) //pon1
+                        {
+                            if (objects[0].getTexture() == &calendarblue || objects[0].getTexture() == &calendarred || objects[0].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 2 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 2 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 180 && pozycja.y <= 316) //wt1
+                        {
+                            if (objects[1].getTexture() == &calendarblue || objects[1].getTexture() == &calendarred || objects[1].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 3 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 3 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 180 && pozycja.y <= 316) //sr1
+                        {
+                            if (objects[2].getTexture() == &calendarblue || objects[2].getTexture() == &calendarred || objects[2].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 4 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 4 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 180 && pozycja.y <= 316) //czw1
+                        {
+                            if (objects[3].getTexture() == &calendarblue || objects[3].getTexture() == &calendarred || objects[3].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 5 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 5 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 180 && pozycja.y <= 316) //pt1
+                        {
+                            if (objects[4].getTexture() == &calendarblue || objects[4].getTexture() == &calendarred || objects[4].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 6 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 6 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 180 && pozycja.y <= 316) //sob1
+                        {
+                            if (objects[5].getTexture() == &calendarblue || objects[5].getTexture() == &calendarred || objects[5].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 7 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 7 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 180 && pozycja.y <= 316) //nd1
+                        {
+                            if (objects[6].getTexture() == &calendarblue || objects[6].getTexture() == &calendarred || objects[6].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 8 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 8 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 316 && pozycja.y <= 452) //pon2
+                        {
+                            if (objects[7].getTexture() == &calendarblue || objects[7].getTexture() == &calendarred || objects[7].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 9 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 9 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 316 && pozycja.y <= 452) //wt2
+                        {
+                            if (objects[8].getTexture() == &calendarblue || objects[8].getTexture() == &calendarred || objects[8].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 10 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 10 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 316 && pozycja.y <= 452) //sr2
+                        {
+                            if (objects[9].getTexture() == &calendarblue || objects[9].getTexture() == &calendarred || objects[9].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 11 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 11 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 316 && pozycja.y <= 452) //czw2
+                        {
+                            if (objects[10].getTexture() == &calendarblue || objects[10].getTexture() == &calendarred || objects[10].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 12 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 12 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 316 && pozycja.y <= 452) //pt2
+                        {
+                            if (objects[11].getTexture() == &calendarblue || objects[11].getTexture() == &calendarred || objects[11].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 13 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 13 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 316 && pozycja.y <= 452) //sob2
+                        {
+                            if (objects[12].getTexture() == &calendarblue || objects[12].getTexture() == &calendarred || objects[12].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 14 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+
+                                }
+                                else
+                                {
+                                    dzien = 14 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 316 && pozycja.y <= 452) //nd2
+                        {
+                            if (objects[13].getTexture() == &calendarblue || objects[13].getTexture() == &calendarred || objects[13].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 15 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 15 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 452 && pozycja.y <= 588) //pon3
+                        {
+                            if (objects[14].getTexture() == &calendarblue || objects[14].getTexture() == &calendarred || objects[14].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 16 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 16 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 452 && pozycja.y <= 588) //wt3
+                        {
+                            if (objects[15].getTexture() == &calendarblue || objects[15].getTexture() == &calendarred || objects[15].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 17 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 17 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 452 && pozycja.y <= 588) //sr3
+                        {
+                            if (objects[16].getTexture() == &calendarblue || objects[16].getTexture() == &calendarred || objects[16].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 18 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 18 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 452 && pozycja.y <= 588) //czw3
+                        {
+                            if (objects[17].getTexture() == &calendarblue || objects[17].getTexture() == &calendarred || objects[17].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 19 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 19 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                    //std::cout << "stalosiecoma";
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 452 && pozycja.y <= 588) //pt3
+                        {
+                            if (objects[18].getTexture() == &calendarblue || objects[18].getTexture() == &calendarred || objects[18].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 20 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 20 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 452 && pozycja.y <= 588) //sob3
+                        {
+                            if (objects[19].getTexture() == &calendarblue || objects[19].getTexture() == &calendarred || objects[19].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 21 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 21 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 452 && pozycja.y <= 588) //nd3
+                        {
+                            if (objects[20].getTexture() == &calendarblue || objects[20].getTexture() == &calendarred || objects[20].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 22 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 22 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 588 && pozycja.y <= 724) //pon4
+                        {
+                            if (objects[21].getTexture() == &calendarblue || objects[21].getTexture() == &calendarred || objects[21].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 23 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 23 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 588 && pozycja.y <= 724) //wt4
+                        {
+                            if (objects[22].getTexture() == &calendarblue || objects[22].getTexture() == &calendarred || objects[22].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 24 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 24 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 588 && pozycja.y <= 724) //sr4
+                        {
+                            if (objects[23].getTexture() == &calendarblue || objects[23].getTexture() == &calendarred || objects[23].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 25 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 25 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 588 && pozycja.y <= 724) //czw4
+                        {
+                            if (objects[24].getTexture() == &calendarblue || objects[24].getTexture() == &calendarred || objects[24].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 26 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 26 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 588 && pozycja.y <= 724) //pt4
+                        {
+                            if (objects[25].getTexture() == &calendarblue || objects[25].getTexture() == &calendarred || objects[25].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 27 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 27 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 588 && pozycja.y <= 724) //sob4
+                        {
+                            if (objects[26].getTexture() == &calendarblue || objects[26].getTexture() == &calendarred || objects[26].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 28 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 28 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 588 && pozycja.y <= 724) //nd4
+                        {
+                            if (objects[27].getTexture() == &calendarblue || objects[27].getTexture() == &calendarred || objects[27].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 29 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 29 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 724 && pozycja.y <= 860) //pon5
+                        {
+                            if (objects[28].getTexture() == &calendarblue || objects[28].getTexture() == &calendarred || objects[28].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 30 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 30 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 724 && pozycja.y <= 860) //wt5
+                        {
+                            if (objects[29].getTexture() == &calendarblue || objects[29].getTexture() == &calendarred || objects[29].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 31 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 31 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 724 && pozycja.y <= 860) //sr5
+                        {
+                            if (objects[30].getTexture() == &calendarblue || objects[30].getTexture() == &calendarred || objects[30].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 32 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 32 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 724 && pozycja.y <= 860) //czw5
+                        {
+                            if (objects[31].getTexture() == &calendarblue || objects[31].getTexture() == &calendarred || objects[31].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 33 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 33 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 724 && pozycja.y <= 860) //pt5
+                        {
+                            if (objects[32].getTexture() == &calendarblue || objects[32].getTexture() == &calendarred || objects[32].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 34 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 34 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 724 && pozycja.y <= 860) //sob5
+                        {
+                            if (objects[33].getTexture() == &calendarblue || objects[33].getTexture() == &calendarred || objects[33].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 35 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 35 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 724 && pozycja.y <= 860) //nd5
+                        {
+                            if (objects[34].getTexture() == &calendarblue || objects[34].getTexture() == &calendarred || objects[34].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 36 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 36 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 143 && pozycja.x <= 373 && pozycja.y >= 724 && pozycja.y <= 860) //pon6
+                        {
+                            if (objects[35].getTexture() == &calendarblue || objects[35].getTexture() == &calendarred || objects[35].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 37 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 37 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 373 && pozycja.x <= 603 && pozycja.y >= 724 && pozycja.y <= 860) //wt6
+                        {
+                            if (objects[36].getTexture() == &calendarblue || objects[36].getTexture() == &calendarred || objects[36].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 38 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 38 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 603 && pozycja.x <= 833 && pozycja.y >= 724 && pozycja.y <= 860) //sr6
+                        {
+                            if (objects[37].getTexture() == &calendarblue || objects[37].getTexture() == &calendarred || objects[37].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 39 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 39 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 833 && pozycja.x <= 1063 && pozycja.y >= 724 && pozycja.y <= 860) //czw6
+                        {
+                            if (objects[38].getTexture() == &calendarblue || objects[38].getTexture() == &calendarred || objects[38].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 40 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 40 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1063 && pozycja.x <= 1293 && pozycja.y >= 724 && pozycja.y <= 860) //pt6
+                        {
+                            if (objects[39].getTexture() == &calendarblue || objects[39].getTexture() == &calendarred || objects[39].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 41 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 41 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1293 && pozycja.x <= 1523 && pozycja.y >= 724 && pozycja.y <= 860) //sob6
+                        {
+                            if (objects[40].getTexture() == &calendarblue || objects[40].getTexture() == &calendarred || objects[40].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 42 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 42 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        if (pozycja.x >= 1523 && pozycja.x <= 1753 && pozycja.y >= 724 && pozycja.y <= 860) //nd6
+                        {
+                            if (objects[41].getTexture() == &calendarblue || objects[41].getTexture() == &calendarred || objects[41].getTexture() == &calendarred)
+                            {
+                                if (data->tm_wday != 0)
+                                {
+                                    dzien = 43 - data->tm_wday;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                else
+                                {
+                                    dzien = 43 - 7;
+                                    miesiac = data->tm_mon;
+                                    rok = data->tm_year;
+                                }
+                                name = "calendar/";
+                                name = name + std::to_string(dzien) + "v" + std::to_string(miesiac + 1) + "v" + std::to_string(rok + 1900) + ".txt";
+                                plik.open(name.c_str(), std::ios::out);
+                                plik << "red";
+                                plik.close();
+                            }
+                        }
+                        change_state = true;
+                        state = 0;
+                    }
+                }
+            }
 
             //pisanie tekstu
             if (event.type == sf::Event::TextEntered) //wysokosc max 8

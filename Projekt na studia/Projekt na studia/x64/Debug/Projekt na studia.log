@@ -1,35 +1,35 @@
 ﻿  Projekt na studia.cpp
-C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(274,78): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(277,78): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(274,61): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(277,61): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(308,79): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(311,79): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(308,60): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(311,60): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(503,67): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(512,67): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(543,73): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(552,73): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(584,68): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\kubas\Documents\Jakub\Studia\semestr 3\Projekt c++\GitHub\Projekt na studia\Projekt na studia\Projekt na studia.cpp(593,68): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
